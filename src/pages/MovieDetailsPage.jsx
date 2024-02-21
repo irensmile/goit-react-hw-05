@@ -1,11 +1,16 @@
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { buildPicturePath, getMovieDetails } from "../api";
-import css from "./MovieDetailsPage.module.css";
+import { useParams, Link, Outlet, useLocation } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { getMovieDetails } from "../api";
+import BackLink from "../components/BackLink";
+import MovieCard from "../components/MovieCard";
+import { Addinfo } from "../components/Addinfo";
 
 export const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const location = useLocation();
+  const linkBack = useRef(location.state);
+  //const navigate = useNavigate();
 
   useEffect(() => {
     async function loadData() {
@@ -13,21 +18,18 @@ export const MovieDetailsPage = () => {
     }
     loadData();
   }, []);
-  if (!movie) return "<></>";
+
+  if (!movie) return "<></>"; // Refactor
   return (
-    <div className={css.card}>
-      <h2>{movie.title}</h2>
-      <p>{movie.overview}</p>
-      <img
-        src={buildPicturePath(movie.backdrop_path)}
-        alt={movie.title}
-        width="500"
-      />
-    </div>
+    <>
+      <BackLink href={linkBack.current ? linkBack.current : "/"}>
+        Go Back
+      </BackLink>
+      {movie && <MovieCard movie={movie} />}
+      {movie && <Addinfo movieId={movieId} />}
+      <Outlet />
+    </>
   );
 };
-//backdrop_path
-//overview
-//genres ([id, name])
-//release date
+
 export default MovieDetailsPage;

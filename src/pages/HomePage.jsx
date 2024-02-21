@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { getTrendingMovies } from "../api";
-import { useParams, useNavigate } from "react-router-dom";
+import css from "./HomePage.module.css";
+import MoviesList from "../components/MoviesList";
 
 export const HomePage = () => {
   const [movies, setMovies] = useState([]);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function loadData() {
@@ -17,21 +16,8 @@ export const HomePage = () => {
 
   return (
     <>
-      <h2>Trending Today</h2>
-      {movies && (
-        <ul>
-          {movies.map((movie) => (
-            <p
-              onClick={() => {
-                navigate(`/movie/${movie.id}`, { replace: true });
-              }}
-              key={movie.id}
-            >
-              {movie.title}
-            </p>
-          ))}
-        </ul>
-      )}
+      <h2 className={css.trending}>Trending Today</h2>
+      {movies && <MoviesList movies={movies} />}
     </>
   );
 };

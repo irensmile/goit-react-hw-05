@@ -1,0 +1,8 @@
+.container {
+  padding: 20px;
+  border-top: 1px solid blueviolet;
+  margin-top: 20px;
+}
+.review-item {
+  padding: 10px;
+}
