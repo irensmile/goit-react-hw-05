@@ -8,17 +8,17 @@ import ErrorMessage from "../components/ErrorMessage";
 export const MovieReviews = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const { movieId } = useParams();
 
   useEffect(() => {
     async function loadData() {
       try {
-        setError(false);
+        setError("");
         setLoading(true);
         setReviews(await getMovieReviews(movieId));
       } catch (error) {
-        setError(true);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
@@ -29,7 +29,7 @@ export const MovieReviews = () => {
   return (
     <div className={css.container}>
       <h2>Movie Reviews</h2>
-      {error && <ErrorMessage />}
+      {error && <ErrorMessage message={error} />}
       {loading && <Loader />}
 
       <ul className={css.container}>

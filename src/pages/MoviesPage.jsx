@@ -9,7 +9,7 @@ import ErrorMessage from "../components/ErrorMessage";
 export const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const [params, setParams] = useSearchParams();
 
   const query = params.get("query") ?? "";
@@ -17,11 +17,11 @@ export const MoviesPage = () => {
   useEffect(() => {
     async function loadData() {
       try {
-        setError(false);
+        setError("");
         setLoading(true);
         setMovies(await getMovies(query));
       } catch (error) {
-        setError(true);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
@@ -37,7 +37,7 @@ export const MoviesPage = () => {
   return (
     <div>
       <SearchForm onSearch={handleSearch} />
-      {error && <ErrorMessage />}
+      {error && <ErrorMessage message={error} />}
       {loading && <Loader />}
       {movies.length > 0 && <MoviesList movies={movies} />}
     </div>

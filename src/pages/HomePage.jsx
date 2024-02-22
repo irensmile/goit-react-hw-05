@@ -8,16 +8,16 @@ import ErrorMessage from "../components/ErrorMessage";
 export const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     async function loadData() {
       try {
-        setError(false);
+        setError("");
         setLoading(true);
         setMovies(await getTrendingMovies());
       } catch (error) {
-        setError(true);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
@@ -28,7 +28,7 @@ export const HomePage = () => {
   return (
     <>
       <h2 className={css.trending}>Trending Today</h2>
-      {error && <ErrorMessage />}
+      {error && <ErrorMessage message={error} />}
       {loading && <Loader />}
       {movies && <MoviesList movies={movies} />}
     </>

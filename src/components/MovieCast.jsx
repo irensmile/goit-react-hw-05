@@ -10,16 +10,16 @@ export const MovieCast = () => {
   const { movieId } = useParams();
   const [castList, setCastList] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     async function loadData() {
       try {
-        setError(false);
+        setError("");
         setLoading(true);
         setCastList(await getMovieCredits(movieId));
       } catch (error) {
-        setError(true);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
@@ -30,7 +30,7 @@ export const MovieCast = () => {
   return (
     <div className={css.container}>
       <h2>Movie Cast</h2>
-      {error && <ErrorMessage />}
+      {error && <ErrorMessage message={error} />}
       {loading && <Loader />}
       <ul className={css.container}>
         {castList.length > 0 &&
