@@ -24,7 +24,7 @@ export const MovieReviews = () => {
       }
     }
     loadData();
-  }, []);
+  }, [movieId]);
 
   return (
     <div className={css.container}>

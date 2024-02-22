@@ -13,7 +13,7 @@ export const MovieDetailsPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const location = useLocation();
-  const linkBack = useRef(location.state);
+  const linkBack = useRef(location.state?.from);
 
   useEffect(() => {
     async function loadData() {
@@ -28,7 +28,7 @@ export const MovieDetailsPage = () => {
       }
     }
     loadData();
-  }, []);
+  }, [movieId]);
 
   return (
     movie && (

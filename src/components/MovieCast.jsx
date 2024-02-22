@@ -25,7 +25,7 @@ export const MovieCast = () => {
       }
     }
     loadData();
-  }, []);
+  }, [movieId]);
 
   return (
     <div className={css.container}>
