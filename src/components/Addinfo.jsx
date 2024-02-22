@@ -6,10 +6,10 @@ export const Addinfo = ({ movieId }) => (
     <h3>Additional Information</h3>
     <ul>
       <li>
-        <Link to={`/movie/${movieId}/cast`}>Cast</Link>
+        <Link to={`/movies/${movieId}/cast`}>Cast</Link>
       </li>
       <li>
-        <Link to={`/movie/${movieId}/reviews`}>Reviews</Link>
+        <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
       </li>
     </ul>
   </div>
