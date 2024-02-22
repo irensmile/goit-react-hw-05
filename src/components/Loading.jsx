@@ -2,7 +2,7 @@ import { ThreeCircles } from "react-loader-spinner";
 
 export const Loader = () => (
   <>
-    <div>Loading data...</div>
+    <span>Loading data...</span>
     <ThreeCircles
       visible={true}
       height="30"
